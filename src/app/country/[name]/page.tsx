@@ -1,42 +1,26 @@
 'use client';
 
 import { useParams, useRouter } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { useQuery } from '@apollo/client';
 import { LoadingPage } from '@/components/ui/loading';
 import { Country } from '@/types/country';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
+import { GET_COUNTRY } from '@/lib/apollo-client';
 
 export default function CountryDetail() {
   const router = useRouter();
   const params = useParams();
   const countryName = decodeURIComponent(params.name as string);
 
-  const [country, setCountry] = useState<Country | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchCountry = async () => {
-      try {
-        const response = await fetch(`https://restcountries.com/v3.1/name/${encodeURIComponent(countryName)}`);
-        if (!response.ok) {
-          throw new Error('Failed to fetch country');
-        }
-        const data = await response.json();
-        setCountry(data[0]);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'An error occurred');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchCountry();
-  }, [countryName]);
+  const { data, loading, error } = useQuery<{ country: Country[] }>(GET_COUNTRY, {
+    variables: { name: countryName },
+  });
 
   if (loading) return <LoadingPage />;
-  if (error) return <div className="text-center text-red-500">Error: {error}</div>;
-  if (!country) return <div className="text-center">Country not found</div>;
+  if (error) return <div className="text-center text-red-500">Error: {error.message}</div>;
+  if (!data?.country?.[0]) return <div className="text-center">Country not found</div>;
+
+  const country = data.country[0];
 
   return (
     <main className="container mx-auto px-4 py-8">

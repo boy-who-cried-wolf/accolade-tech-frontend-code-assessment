@@ -1,43 +1,25 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { useQuery } from '@apollo/client';
 import Link from 'next/link';
 import { LoadingPage } from '@/components/ui/loading';
 import { Country } from '@/types/country';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+import { ALL_COUNTRIES } from '@/lib/apollo-client';
 
 export default function Home() {
   const [search, setSearch] = useState('');
   const [selectedCountries, setSelectedCountries] = useState<Country[]>([]);
-  const [countries, setCountries] = useState<Country[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchCountries = async () => {
-      try {
-        const response = await fetch('https://restcountries.com/v3.1/all');
-        if (!response.ok) {
-          throw new Error('Failed to fetch countries');
-        }
-        const data = await response.json();
-        setCountries(data);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'An error occurred');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchCountries();
-  }, []);
+  const { data, loading, error } = useQuery<{ countries: Country[] }>(ALL_COUNTRIES);
 
   if (loading) return <LoadingPage />;
-  if (error) return <div className="text-center text-red-500">Error: {error}</div>;
+  if (error) return <div className="text-center text-red-500">Error: {error.message}</div>;
 
-  const filteredCountries = countries.filter(country =>
+  const filteredCountries = data?.countries?.filter(country =>
     country.name.common.toLowerCase().includes(search.toLowerCase())
-  );
+  ) || [];
 
   const handleCountrySelect = (country: Country) => {
     if (selectedCountries.length < 2 && !selectedCountries.find(c => c.name.common === country.name.common)) {
@@ -130,7 +112,7 @@ export default function Home() {
                 <td className="px-6 py-4 whitespace-nowrap">
                   <button
                     onClick={() => handleCountrySelect(country)}
-                    className={`px-3 py-1 rounded cursor-pointer ${
+                    className={`px-3 py-1 rounded ${
                       selectedCountries.find(c => c.name.common === country.name.common)
                         ? 'bg-blue-500 text-white'
                         : 'bg-gray-100 text-gray-700'
