@@ -4,7 +4,7 @@ import { RetryLink } from '@apollo/client/link/retry';
 import { from } from '@apollo/client';
 
 const httpLink = createHttpLink({
-  uri: 'https://restcountries.com/v3.1',
+  uri: 'https://restcountries.com/v3',
 });
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
