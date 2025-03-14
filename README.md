@@ -32,6 +32,21 @@ A modern web application built with Next.js that allows users to explore and com
    ```
 4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
+## Deployment to Render.com
+
+1. Create a Render account at [render.com](https://render.com)
+2. From your Render dashboard, click "New +" and select "Web Service"
+3. Connect your GitHub repository
+4. Configure the deployment:
+   - Name: `countries-explorer` (or your preferred name)
+   - Environment: `Node`
+   - Build Command: `npm install && npm run build`
+   - Start Command: `npm start`
+   - Instance Type: Free (or your preferred tier)
+5. Click "Create Web Service"
+
+The application will be automatically deployed whenever you push changes to your repository.
+
 ## Project Structure
 
 - `src/app/` - Next.js app router pages and layouts
