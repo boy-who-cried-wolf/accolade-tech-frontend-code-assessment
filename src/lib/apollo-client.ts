@@ -1,37 +1,22 @@
-import { ApolloClient, InMemoryCache, gql, createHttpLink } from '@apollo/client';
-import { onError } from '@apollo/client/link/error';
-import { RetryLink } from '@apollo/client/link/retry';
-import { from } from '@apollo/client';
+import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
+import { RestLink } from 'apollo-link-rest';
 
-const httpLink = createHttpLink({
-  uri: 'https://restcountries.com/v3',
-});
-
-const errorLink = onError(({ graphQLErrors, networkError }) => {
-  if (graphQLErrors)
-    graphQLErrors.forEach(({ message, locations, path }) =>
-      console.error(
-        `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
-      )
-    );
-  if (networkError) console.error(`[Network error]: ${networkError}`);
-});
-
-const retryLink = new RetryLink({
-  delay: {
-    initial: 300,
-    max: 3000,
-    jitter: true,
-  },
-  attempts: {
-    max: 2,
-    retryIf: (error) => !!error
-  },
+// Create REST Link
+const restLink = new RestLink({
+  uri: 'https://restcountries.com/v3.1',
+  endpoints: {
+    countries: 'https://restcountries.com/v3.1'
+  }
 });
 
 export const ALL_COUNTRIES = gql`
   query GetAllCountries {
-    countries @rest(type: "Country", path: "/all") {
+    countries 
+    @rest(
+      type: "CountriesResponse"
+      path: "/all"
+      endpoint: "countries"
+    ) {
       name {
         common
         official
@@ -57,7 +42,12 @@ export const ALL_COUNTRIES = gql`
 
 export const GET_COUNTRY = gql`
   query GetCountry($name: String!) {
-    country @rest(type: "Country", path: "/name/{args.name}") {
+    country 
+    @rest(
+      type: "CountryResponse"
+      path: "/name/{args.name}"
+      endpoint: "countries"
+    ) {
       name {
         common
         official
@@ -82,11 +72,11 @@ export const GET_COUNTRY = gql`
 `;
 
 export const client = new ApolloClient({
-  link: from([errorLink, retryLink, httpLink]),
+  link: restLink,
   cache: new InMemoryCache(),
   defaultOptions: {
     watchQuery: {
-      fetchPolicy: 'cache-and-network',
+      fetchPolicy: 'network-only',
       errorPolicy: 'all',
     },
     query: {
