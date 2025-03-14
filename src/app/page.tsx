@@ -5,7 +5,7 @@ import { useQuery } from '@apollo/client';
 import Link from 'next/link';
 import { LoadingPage } from '@/components/ui/loading';
 import { Country } from '@/types/country';
-import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { ALL_COUNTRIES } from '@/lib/apollo-client';
 
 export default function Home() {
@@ -50,7 +50,16 @@ export default function Home() {
           {/* Country Comparison */}
           {selectedCountries.length > 0 && (
             <div className="mb-4 p-4 bg-gray-50 rounded-lg">
-              <h2 className="text-2xl font-semibold mb-4">Country Comparison</h2>
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="text-2xl font-semibold">Country Comparison</h2>
+                <button
+                  onClick={() => setSelectedCountries([])}
+                  className="p-1 hover:bg-gray-200 rounded-full transition-colors"
+                  title="Close comparison"
+                >
+                  <XMarkIcon className="h-6 w-6 text-gray-500" />
+                </button>
+              </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {selectedCountries.map(country => (
                   <div key={country.name.common} className="p-4 bg-white rounded-lg shadow">
