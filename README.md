@@ -1,98 +1,145 @@
-# Countries Explorer
+# 🌍 Countries Explorer
 
-A modern web application built with Next.js that allows users to explore and compare countries using data from the REST Countries API.
+A modern, interactive web application for exploring and comparing countries around the world. Built with Next.js and powered by the REST Countries API.
 
-## Features
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-View%20Here-blue?style=for-the-badge)](https://accolade-tech-frontend-code-assessment.onrender.com/)
 
-- View a list of all countries with essential information
-- Real-time search functionality
-- Detailed country information pages
-- Compare two countries side by side
-- Responsive design with modern UI
-- Error handling and loading states
+## ✨ Features
 
-## Technologies Used
+- 🔍 Real-time country search
+- 📊 Compare up to two countries side by side
+- 📱 Responsive design for all devices
+- 🎨 Modern UI with smooth animations
+- ⚡ Fast and efficient data loading
+- 🛡️ Error handling and loading states
 
-- Next.js 14 (App Router)
-- TypeScript
-- Tailwind CSS
-- Heroicons
-- REST Countries API
+## 🛠️ Tech Stack
 
-## Getting Started
+- **Framework**: [Next.js 14](https://nextjs.org/) (App Router)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **State Management**: [Apollo Client](https://www.apollographql.com/docs/react/)
+- **Icons**: [Heroicons](https://heroicons.com/)
+- **API**: [REST Countries API](https://restcountries.com/)
 
-1. Clone the repository
+## 🚀 Getting Started
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/countries-explorer.git
+   cd countries-explorer
+   ```
+
 2. Install dependencies:
    ```bash
    npm install
    ```
+
 3. Run the development server:
    ```bash
    npm run dev
    ```
+
 4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-## Deployment to Render.com
+## 📁 Project Structure
 
-1. Create a Render account at [render.com](https://render.com)
-2. From your Render dashboard, click "New +" and select "Web Service"
-3. Connect your GitHub repository
-4. Configure the deployment:
-   - Name: `countries-explorer` (or your preferred name)
-   - Environment: `Node`
-   - Build Command: `npm install && npm run build`
-   - Start Command: `npm start`
-   - Instance Type: Free (or your preferred tier)
-5. Click "Create Web Service"
+```
+src/
+├── app/                    # Next.js app router pages
+├── components/            # Reusable React components
+│   ├── countries/        # Country-related components
+│   │   ├── comparison/  # Comparison feature components
+│   │   └── table/       # Table display components
+│   ├── search/          # Search functionality
+│   └── ui/              # UI components
+├── lib/                  # Utility functions and configurations
+└── types/               # TypeScript type definitions
+```
 
-The application will be automatically deployed whenever you push changes to your repository.
+## 🎯 Key Features in Detail
 
-## Project Structure
-
-- `src/app/` - Next.js app router pages and layouts
-- `src/components/` - Reusable React components
-- `src/types/` - TypeScript type definitions
-
-## Features in Detail
-
-### Country List Page
-- Displays a table of countries with flags, names, capitals, regions, and populations
-- Real-time search filtering
-- Country comparison functionality
-- Links to detailed country pages
-
-### Country Detail Page
-- Comprehensive country information
-- Flag display
-- General information section
-- Demographics and geography section
-- Bordering countries
-- Google Maps link
+### Country Search
+- Real-time filtering as you type
+- Case-insensitive search
+- Instant results update
 
 ### Country Comparison
 - Select up to two countries for comparison
-- Compare population, area, and region
-- Clear visual representation of differences
+- Smooth collapse/expand animations
+- Individual country removal
+- Key metrics comparison:
+  - Population
+  - Area
+  - Region
+  - More details available
 
-## Error Handling
+### Country Details
+- Comprehensive country information
+- Flag display
+- Capital city
+- Region and subregion
+- Population statistics
+- Area measurements
 
-The application includes proper error handling for:
+## 🎨 UI/UX Features
+
+- **Sticky Header**: Search and comparison area stay visible while scrolling
+- **Smooth Animations**: Collapse/expand transitions for comparison area
+- **Responsive Design**: Works seamlessly on all device sizes
+- **Interactive Elements**: Hover effects and clear visual feedback
+- **Loading States**: Smooth loading indicators
+- **Error Handling**: User-friendly error messages
+
+## 🧪 Testing
+
+The application includes comprehensive error handling for:
 - API request failures
 - Invalid country names
 - Loading states
 - Missing data fields
 
-## Performance Considerations
+## 🚀 Deployment
+
+The application is deployed on [Render](https://render.com/):
+- Automatic deployments from the main branch
+- Zero-downtime deployments
+- HTTPS enabled
+- Global CDN
+
+## 📈 Performance Optimizations
 
 - Optimized image loading
-- Responsive design for all screen sizes
-- Real-time search with client-side filtering
 - Efficient state management
+- Client-side filtering
+- Responsive design
+- Smooth animations
+- Error boundary implementation
 
-## Future Improvements
+## 🔮 Future Improvements
 
-- Add sorting functionality to the country list
-- Implement more detailed country comparisons
-- Add data visualization for country statistics
-- Include a map view for country locations
-- Add favorite countries functionality
+- [ ] Add sorting functionality to the country list
+- [ ] Implement more detailed country comparisons
+- [ ] Add data visualization for country statistics
+- [ ] Include a map view for country locations
+- [ ] Add favorite countries functionality
+- [ ] Implement dark mode
+- [ ] Add more comparison metrics
+- [ ] Include country time zones
+- [ ] Add currency conversion
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- [REST Countries API](https://restcountries.com/) for providing the country data
+- [Next.js](https://nextjs.org/) team for the amazing framework
+- [Tailwind CSS](https://tailwindcss.com/) for the utility-first CSS framework
+- [Apollo Client](https://www.apollographql.com/docs/react/) for state management
+- [Heroicons](https://heroicons.com/) for the beautiful icons
